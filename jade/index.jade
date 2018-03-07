@@ -1,0 +1,116 @@
+// lx homepage
+
+doctype html
+html(lang="en", ng-app="leanx.home.app") 
+	head
+		meta(http-equiv="content-type", content="#{contentType}; charset=UTF-8")
+		title= pageTitle
+		link(rel="stylesheet", href="./bootstrap-3.3.7-dist/css/bootstrap.min.css")
+		link(rel="stylesheet", href="./css/leanx-theme.min.css")
+		link(rel="stylesheet", href="./css/app.css")
+		//link(rel="stylesheet", href="./bootstrap-3.3.7-dist/css/bootstrap-theme.min.css")
+		// link(rel="stylesheet", href="http://cdn.jsdelivr.net/fontawesome/4.5.0/css/font-awesome.css")
+		// link(rel="stylesheet", href="http://mgcrea.github.io/angular-strap/styles/libs.min.css")
+		// link(rel="stylesheet",href="https://cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.2.0/css/xeditable.min.css")
+		// included bootstrap-additions v0.3.1, angular-motion v0.4.4 
+	body(data-spy="scroll", data-target=".navbar", data-offset="50", ng-controller="leanx.home.ctrl")
+		nav.navbar.navbar-default.navbar-fixed-top
+			.container
+				.navbar-header
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar")
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href="#")
+						img(src="./img/leanx-logo.png")
+						
+				#navbar.navbar-collapse.collapse
+					ul.nav.navbar-nav.navbar-right
+						li.active: a(href="#home")  首页
+						li: a(href="#team")  专业团队
+						li
+							a.dropdown-toggle(href="#", data-toggle="dropdown",
+							aria-haspopup="true",aria-expanded="false")  解决方案
+								span.caret
+							ul.dropdown-menu
+								li(ng-repeat="s in a.solutionSections"): a(href="#{{s.id}}") {{s.title}}
+						li: a(href="#contacts")  联系方式
+						//li
+							a.dropdown-toggle(href="#", data-toggle="dropdown",
+							aria-haspopup="true",aria-expanded="false")
+								span.lang-box
+									| LANG
+									span.caret
+							ul.dropdown-menu
+								li: a(href="#")  DE
+								li: a(href="#")  EN
+						//li: a(href="#")
+							span.glyphicon.glyphicon-console
+						//li: a(href="#debug")  D
+
+		.container(role="main")
+			#home.section
+				img.img-responsive.center-block(src="./img/title-pic.png")
+				.row
+					.col-md-5.col-md-push-5.col-md-offset-1
+						h1.text-center {{a.slogan}}
+					.col-md-5.col-md-pull-5
+						p
+						ul
+							li(ng-repeat="h in a.highlights") {{h}}
+			#team.section
+				.row
+					.col-md-2.col-md-offset-1
+						img.img-responsive.center-block(src="./img/pic-1.png")
+					.col-md-8
+						h3 专业团队
+						p {{a.teamDesc}}
+			#solutions.section
+				h3 解决方案
+				.row
+					.col-md-4.col-xs-6(ng-repeat="s in a.solutionSections")
+						.postcard
+							a(href="{{s.tag}}")
+								img(src="{{s.icon}}")
+								.title {{s.title}}
+			.seciton(ng-repeat="s in a.solutionSections", ng-attr-id="{{s.id}}")
+				.row
+					.col-md-1
+					.col-md-10
+						.solutions.row()
+							.col-md-2(ng-class-odd="''", ng-class-even="'col-md-push-10'")
+								img(src="{{s.icon}}")
+								.title {{s.title}}
+							.solution-content.col-md-10(ng-class-even="'col-md-pull-2 text-right'", ng-class-odd="''")
+								p {{s.content}}
+					.col-md-1
+
+			
+
+			#contacts.section
+				h3 联系方式
+				.row
+					.visitcard.col-md-4.col-xs-6(ng-repeat="c in a.contacts")
+						h4  {{c.title}}
+						dl.dl-horizontal
+							dt 电话
+							dd {{c.telephone}}
+
+							dt 电邮
+							dd {{c.email}}
+
+							dt 联络人
+							dd {{c.person}}
+
+			//#debug.row.section
+				.col-xs-6
+					pre {{a | json}}
+					
+	
+
+		script(src="./jquery-3.1.0/jquery-3.1.0.min.js")
+		script(src="./angular-1.5.8/angular.min.js")
+		script(src="./angular-1.5.8/angular-animate.min.js")
+		script(src="./bootstrap-3.3.7-dist/js/bootstrap.min.js")
+		script(src="./js/lorem.js")
+		script(src="./js/app.js")
